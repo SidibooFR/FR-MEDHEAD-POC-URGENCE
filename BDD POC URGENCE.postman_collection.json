@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "08d64313-f104-49d0-9875-5646f8763cbe",
+		"name": "BDD POC URGENCE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3547795"
+	},
+	"item": [
+		{
+			"name": "Post urgence simple",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"patientId\": 1234,\r\n    \"specialiteSouhaite\": \"cardiologie\",\r\n    \"gpsOrigineX\": 5,\r\n    \"gpsOrigineY\": 6\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/urgences",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"urgences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post urgence localisation proche",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"patientId\": 0,\r\n    \"specialiteSouhaite\": \"immunologie\",\r\n    \"gpsOrigineX\": 5,\r\n    \"gpsOrigineY\": 5,\r\n    \"hopitalDestinationId\": 0,\r\n    \"nomHopitalDestination\": null,\r\n    \"reservationId\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/urgences",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"urgences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get listes des deux urgences",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/urgences",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"urgences"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,4 +1,4 @@
-package fr.medhead.urgence.repertoire;
+package fr.medhead.urgence.repository;
 
 import fr.medhead.urgence.model.Urgence;
 import org.springframework.data.jpa.repository.JpaRepository;

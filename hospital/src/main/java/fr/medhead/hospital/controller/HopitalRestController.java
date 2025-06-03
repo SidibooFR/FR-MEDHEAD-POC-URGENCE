@@ -15,19 +15,16 @@ import java.util.List;
 @RestController
 public class HopitalRestController {
     @Autowired
-    private final HopitalService hopitalServiceImpl;
+    private HopitalService hopitalService;
 
-    public HopitalRestController(HopitalService hopitalServiceImpl) {
-        this.hopitalServiceImpl = hopitalServiceImpl;
-    }
-
-    @GetMapping ("/hopitaux")
+    @GetMapping("/hopitaux")
     Collection<Hopital> tous() {
-        return this.hopitalServiceImpl.tous();
+        return this.hopitalService.tous();
     }
 
     @GetMapping("/hopitaux/{specialiteSouhaite}/{origineX}/{origineY}")
-    Hopital trouverUnHopitalProcheParSpecialite(@PathVariable String specialiteSouhaite, @PathVariable int origineX, @PathVariable int origineY) {
-        return (Hopital) hopitalServiceImpl.trouverUnHopitalProcheParSpecialite(specialiteSouhaite, origineX, origineY);
+    Hopital trouverUnHopitalProcheParSpecialite(@PathVariable String specialiteSouhaite, @PathVariable int origineX,
+            @PathVariable int origineY) {
+        return (Hopital) hopitalService.trouverUnHopitalProcheParSpecialite(specialiteSouhaite, origineX, origineY);
     }
 }

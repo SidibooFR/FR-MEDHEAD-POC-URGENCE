@@ -2,8 +2,9 @@ package fr.medhead.hospital.bddConfig;
 
 import fr.medhead.hospital.model.Hopital;
 import fr.medhead.hospital.model.Specialite;
-import fr.medhead.hospital.service.repertoire.HopitalRepository;
-import fr.medhead.hospital.service.repertoire.SpecialiteRepository;
+import fr.medhead.hospital.repository.repertoire.HopitalRepository;
+import fr.medhead.hospital.repository.repertoire.SpecialiteRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

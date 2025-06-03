@@ -3,7 +3,7 @@ package fr.medhead.urgence.service;
 import fr.medhead.urgence.consommationrest.ConsumingHopitalRest;
 import fr.medhead.urgence.consommationrest.Hopital;
 import fr.medhead.urgence.model.Urgence;
-import fr.medhead.urgence.repertoire.UrgenceRepository;
+import fr.medhead.urgence.repository.UrgenceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +19,10 @@ public class UrgenceServiceImpl implements UrgenceService {
     private static final Logger LOG = LoggerFactory.getLogger(UrgenceServiceImpl.class);
 
     @Autowired
-    private final UrgenceRepository urgenceRepository;
-    @Autowired
-    private final ConsumingHopitalRest hopitalRest;
+    private UrgenceRepository urgenceRepository;
 
-    public UrgenceServiceImpl(UrgenceRepository urgenceRepository, ConsumingHopitalRest hopitalRest) {
-        this.urgenceRepository = urgenceRepository;
-        this.hopitalRest = hopitalRest;
-    }
+    @Autowired
+    private ConsumingHopitalRest hopitalRest;
 
     @Override
     public Collection<Urgence> tous() {
@@ -39,9 +35,8 @@ public class UrgenceServiceImpl implements UrgenceService {
         Urgence urgenceComplete = nouvelleUrgence;
         System.out.println("urgence new -> " + nouvelleUrgence);
         Hopital hopitalDestination = this.hopitalRest
-                .trouverUnHopitalProcheParSpecialite(nouvelleUrgence.getSpecialiteSouhaite()
-                        , nouvelleUrgence.getGpsOrigineX()
-                        , nouvelleUrgence.getGpsOrigineY());
+                .trouverUnHopitalProcheParSpecialite(nouvelleUrgence.getSpecialiteSouhaite(),
+                        nouvelleUrgence.getGpsOrigineX(), nouvelleUrgence.getGpsOrigineY());
 
         LOG.debug("retour du service hopital --> " + hopitalDestination.toString());
 

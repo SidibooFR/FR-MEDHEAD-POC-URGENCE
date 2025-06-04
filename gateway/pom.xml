@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.4.6</version>
+        <relativePath/>
 	</parent>
 	<groupId>fr.medhead</groupId>
 	<artifactId>gateway</artifactId>
@@ -14,8 +14,8 @@
 	<name>gateway</name>
 	<description>gateway</description>
 	<properties>
-		<java.version>11</java.version>
-		<spring-cloud.version>2021.0.3</spring-cloud.version>
+		<java.version>17</java.version>
+		<spring-cloud.version>2024.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,7 +28,43 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
+		</dependency>
+
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+		</dependency>
+			<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope>
+			</dependency>
+		</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -40,15 +76,15 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>3.4.6</version>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
+

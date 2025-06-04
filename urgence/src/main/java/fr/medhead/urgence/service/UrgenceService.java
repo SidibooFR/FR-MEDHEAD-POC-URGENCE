@@ -8,6 +8,6 @@ public interface UrgenceService {
 
     Collection<Urgence> tous();
 
-    Urgence nouvelleUrgence(Urgence nouvelleUrgence);
+    Urgence nouvelleUrgence(Urgence nouvelleUrgence, String token);
 
 }

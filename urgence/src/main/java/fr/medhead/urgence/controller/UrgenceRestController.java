@@ -18,7 +18,7 @@ public class UrgenceRestController {
     }
 
     @PostMapping(path = "/urgences/add")
-    public Urgence nouvelleUrgence(@RequestBody Urgence nouvelleUrgence) {
-        return urgenceService.nouvelleUrgence(nouvelleUrgence);
+    public Urgence nouvelleUrgence(@RequestBody Urgence nouvelleUrgence, @RequestHeader("Authorization") String token) {
+        return urgenceService.nouvelleUrgence(nouvelleUrgence, token);
     }
 }

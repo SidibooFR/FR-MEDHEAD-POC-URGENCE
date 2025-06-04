@@ -9,7 +9,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.nio.charset.StandardCharsets;
-import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -40,7 +39,7 @@ public class JwtUtil {
      * Extrait le username (subject) depuis le token.
      */
     public Mono<String> extractUsername(String token) {
-        return Mono.fromRunnable(() -> Jwts.parser()
+        return Mono.fromCallable(() -> Jwts.parser()
                 .setSigningKey(KEY)
                 .build()
                 .parseSignedClaims(token)

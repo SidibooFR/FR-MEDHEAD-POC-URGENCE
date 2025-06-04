@@ -1,16 +1,11 @@
 package fr.medhead.urgence.consommationrest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
 
 @Component
 public class ConsumingHopitalRest {
@@ -19,17 +14,28 @@ public class ConsumingHopitalRest {
     private final RestTemplate restTemplate;
 
     public ConsumingHopitalRest(RestTemplate restTemplate) {
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
     }
 
-    public Hopital trouverUnHopitalProcheParSpecialite(String specialiteSouhaite, int origineX, int origineY){
+    public Hopital trouverUnHopitalProcheParSpecialite(
+            String specialite,
+            String gps,
+            String token) {
 
-        String url = "http://localhost:8081/hopitaux/%1/%2/%3";
+        String[] parts = gps.split(",");
+        int x = Integer.parseInt(parts[0]);
+        int y = Integer.parseInt(parts[1]);
 
-        url = url.replace("%1",specialiteSouhaite)
-                .replace("%2", String.valueOf(origineX))
-                .replace("%3",String.valueOf(origineY));
-        return restTemplate
-                .getForObject(url, Hopital.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", token);
+
+        return restTemplate.exchange(
+                "http://localhost:8081/hopitaux/{specialite}/{x}/{y}",
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Hopital.class,
+                specialite,
+                x,
+                y).getBody();
     }
 }

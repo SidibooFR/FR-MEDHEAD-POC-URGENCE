@@ -2,6 +2,8 @@ package fr.medhead.gateway.security;
 
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
@@ -19,6 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private UnauthorizedHandler unauthorizedHandler;
+
     /**
      * Utilisateur in‑memory : *admin / password*.
      */
@@ -29,6 +35,11 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
         return new MapReactiveUserDetailsService(user);
+    }
+
+    @Bean
+    public GlobalFilter globalFilter() {
+        return new TokenPropagationFilter();
     }
 
     /**
@@ -52,6 +63,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http,
             JwtAuthenticationFilter jwtFilter) {
         return http
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandler))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/auth/**").permitAll() // routes publiques

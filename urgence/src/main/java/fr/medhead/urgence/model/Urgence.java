@@ -24,9 +24,6 @@ public class Urgence {
     private String nomHopitalDestination;
     private long reservationId;
 
-    public Urgence() {
-    }
-
     public Urgence(long patientId, String specialiteSouhaite,int origineX, int origineY) {
         this.patientId = patientId;
         this.specialiteSouhaite = specialiteSouhaite;

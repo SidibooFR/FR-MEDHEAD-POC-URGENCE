@@ -7,18 +7,15 @@ on:
 
 jobs:
   build-and-test:
-    # On conserve la dualité Linux / Windows que gérait le Jenkinsfile
     strategy:
       matrix:
         os: [self-hosted]
     runs-on: ${{ matrix.os }}
 
     steps:
-      # --- Étape 1 : récupération du code -------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --- Étape 2 : configuration Maven & JDK --------------------------
       - name: Set up Temurin 17 with Maven cache
         uses: actions/setup-java@v4
         with:
@@ -26,7 +23,6 @@ jobs:
           java-version: '17'
           cache: maven
 
-      # --- Étape 3 : compilation de chaque module -----------------------
       - name: Build gateway
         run: |
           cd gateway
@@ -42,7 +38,6 @@ jobs:
           cd urgence
           mvn -B -Dmaven.test.failure.ignore=true clean install
 
-      # --- Étape 4 : tests & rapports JUnit -----------------------------
       - name: Tests hospital
         run: |
           cd hospital
@@ -64,14 +59,3 @@ jobs:
         with:
           name: urgence-test-results
           path: urgence/target/surefire-reports/*.xml
-
-      # --- (Optionnel) Étape 5 : lancement des services -----------------
-      # Désactivez ou adaptez cette partie si vous n'avez pas besoin de
-      # démarrer les JARs dans le pipeline. Le sleep sert d’exemple :
-      #- name: Run micro-services (Linux only)
-      #  if: matrix.os == 'ubuntu-latest'
-      #  run: |
-      #    (cd urgence/target  && java -jar urgence-0.0.1-SNAPSHOT.jar  --httpPort=8082 &) \
-      #    (cd hospital/target && java -jar hospital-0.0.1-SNAPSHOT.jar --httpPort=8083 &) \
-      #    (cd gateway/target  && java -jar gateway-0.0.1-SNAPSHOT.jar  --httpPort=8081 &) \
-      #    sleep 30

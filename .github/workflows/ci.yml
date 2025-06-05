@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         module: [ 'gateway', 'hospital', 'urgence' ]
@@ -38,7 +38,7 @@ jobs:
         path: ${{ matrix.module }}/target/surefire-reports/
 
   run-services:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build-and-test
     steps:
     - name: Checkout code

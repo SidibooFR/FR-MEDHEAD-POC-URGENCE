@@ -23,6 +23,11 @@ jobs:
           java-version: '17'
           cache: maven
 
+      - name: Install Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '4.0.0-rc-3'
+
       - name: Build gateway
         run: |
           cd gateway
